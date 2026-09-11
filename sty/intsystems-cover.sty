@@ -57,14 +57,26 @@
 
 % --- people -----------------------------------------------------------------
 
+\newcommand{\intsys@pset}[2]{%
+  \expandafter\gdef\csname intsys@p@\intsys@pid @#1\endcsname{#2}%
+}
+
+\pgfqkeys{/intsys/person}{
+  name/.code=\intsys@pset{name}{#1},
+  photo/.code=\intsys@pset{photo}{#1},
+  photo-height/.code=\intsys@pset{photo-height}{#1},
+  photo-x/.code=\intsys@pset{photo-x}{#1},
+  photo-y/.code=\intsys@pset{photo-y}{#1},
+}
+
 \newcommand{\defineperson}[2]{%
-  \pgfqkeys{/intsys/person/#1}{
-    name/.initial={},
-    photo/.initial={},
-    photo-height/.initial={},
-    photo-x/.initial={},
-    photo-y/.initial={},
-    #2}%
+  \edef\intsys@pid{#1}%
+  \intsys@pset{name}{}%
+  \intsys@pset{photo}{}%
+  \intsys@pset{photo-height}{}%
+  \intsys@pset{photo-x}{}%
+  \intsys@pset{photo-y}{}%
+  \pgfqkeys{/intsys/person}{#2}%
 }
 
 % --- cover keys -------------------------------------------------------------
@@ -141,15 +153,16 @@
 
 \newcommand{\intsys@needperson}[1]{%
   \edef\intsys@lookup{#1}%
-  \pgfkeysifdefined{/intsys/person/\intsys@lookup/name}{}{%
+  \ifcsname intsys@p@\intsys@lookup @name\endcsname
+  \else
     \PackageError{intsystems-cover}{Unknown person `\intsys@lookup'}{%
       Add \string\defineperson{\intsys@lookup}{...} to data/people.tex.}%
-  }%
+  \fi
 }
 
 \newcommand{\intsys@pget}[3]{%
   \edef\intsys@pgetid{#1}%
-  \pgfkeysgetvalue{/intsys/person/\intsys@pgetid/#2}{#3}%
+  \expandafter\let\expandafter#3\csname intsys@p@\intsys@pgetid @#2\endcsname
 }
 
 \newcommand{\intsys@resolvepicture}[1]{%
