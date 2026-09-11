@@ -22,6 +22,11 @@ Set it to a file name from `covers/` (no `.tex`) to build one playlist:
 `\coversemester{FALL 2026}` sets the term under the brand for every cover.
 Override one playlist with `semester` in `\coversetup`.
 
+Overleaf still downloads a PDF.
+After Recompile, open Logs and output files, then Other logs and files, and take `covers-png.zip`.
+Each page is a 1920×1080 PNG (`cover-1.png`, `cover-2.png`, …).
+`latexmkrc` runs `pdftoppm` and zips the set.
+
 ## Add a cover
 
 Copy `covers/template.tex` or a neighbour.
