@@ -84,6 +84,7 @@
 \newcommand{\intsys@resetkeys}{%
   \def\intsys@kind{lecture}%
   \def\intsys@brand{INTELLIGENT SYSTEMS}%
+  \let\intsys@semester\intsys@semesterdefault
   \def\intsys@title{}%
   \def\intsys@subtitle{}%
   \def\intsys@subtitlesize{large}%
@@ -103,11 +104,15 @@
   \def\intsys@ovy{}%
 }
 
+\def\intsys@semesterdefault{}
+\newcommand{\coversemester}[1]{\def\intsys@semesterdefault{#1}}
+
 \intsys@resetkeys
 
 \pgfqkeys{/intsys/cover}{
   kind/.store in=\intsys@kind,
   brand/.store in=\intsys@brand,
+  semester/.store in=\intsys@semester,
   title/.store in=\intsys@title,
   subtitle/.store in=\intsys@subtitle,
   subtitle-size/.store in=\intsys@subtitlesize,
@@ -220,6 +225,10 @@
         {\includegraphics[width=\paperwidth,height=\paperheight]{\intsys@background.png}};
       \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
         {\small\textcolor{intsysaccent}{\intsys@brand}};
+      \ifdefempty{\intsys@semester}{}{%
+        \node[anchor=west] at ($(current page.north west)+(0.8cm,-1.35cm)$)
+          {\footnotesize\intsys@semester};%
+      }%
       \ifdefstring{\intsys@kind}{event}{\intsys@layoutevent}{\intsys@layoutlecture}%
     \end{tikzpicture}%
   }%

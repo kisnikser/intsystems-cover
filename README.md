@@ -19,6 +19,9 @@ Set it to a file name from `covers/` (no `.tex`) to build one playlist:
 \newcommand{\BuildCover}{python}
 ```
 
+`\coversemester{FALL 2026}` sets the term under the brand for every cover.
+Override one playlist with `semester` in `\coversetup`.
+
 ## Add a cover
 
 Copy `covers/template.tex` or a neighbour.
@@ -33,6 +36,7 @@ Lecture:
   title      = {Course title},
   background = white-yellow,
   session    = {Лекция},
+  semester   = {FALL 2026},
 }
 \covers{1,...,14}{vorontsov}
 ```
@@ -63,6 +67,7 @@ Lecturer and seminarist on one cover:
 | Key | Meaning |
 |---|---|
 | `kind` | `lecture` or `event` |
+| `semester` | `FALL 2026`, `SPRING 2026` |
 | `title` | Course or event title |
 | `subtitle` | Event subtitle |
 | `subtitle-size` | `large` or `Huge` |
