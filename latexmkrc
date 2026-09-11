@@ -32,8 +32,9 @@ END {
     print $log 'png ' . scalar(@png) . "\n";
     print $log "$_\n" for @png;
     if (@png) {
-      my $zip = system('zip', '-j', 'covers-png.zip', @png);
-      print $log "zip $zip\n";
+      # Overleaf Other logs hides .png/.zip; .log is in the download list.
+      my $zip = system('zip', '-j', 'covers-png.log', @png);
+      print $log "zip $zip covers-png.log (rename to .zip)\n";
     }
     close $log;
   }
