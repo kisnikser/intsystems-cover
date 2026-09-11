@@ -23,9 +23,11 @@ Set it to a file name from `covers/` (no `.tex`) to build one playlist:
 Override one playlist with `semester` in `\coversetup`.
 
 Overleaf still downloads a PDF.
-After Recompile, open Logs and output files, then Other logs and files, and take `covers-png.zip`.
-Each page is a 1920×1080 PNG (`cover-1.png`, `cover-2.png`, …).
-`latexmkrc` runs `pdftoppm` and zips the set.
+After Recompile, open Logs and output files, then Other logs and files.
+Download `covers-png.zip`, or the individual `cover-1.png` files.
+Each page is 1920×1080.
+`latexmkrc` runs Ghostscript after the PDF is built.
+If neither zip nor PNG appear, open `png-export.log` in that same list.
 
 ## Add a cover
 
