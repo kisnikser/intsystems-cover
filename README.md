@@ -23,9 +23,8 @@ Set it to a file name from `covers/` (no `.tex`) to build one playlist:
 Override one playlist with `semester` in `\coversetup`.
 
 Overleaf still downloads a PDF.
-PNG and zip do not appear in Other logs and files.
-After Recompile, download `covers-png.log` from that list, rename it to `covers-png.zip`, and unzip.
-Each page is 1920×1080 (`cover-1.png`, …).
+After Recompile, open Logs and output files, then Other logs and files, and take `covers-png.zip`.
+Each page is 1920×1080.
 
 ## Add a cover
 
