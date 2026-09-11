@@ -1,0 +1,296 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{intsystems-cover}[2026/09/11 Covers for the Intelligent Systems YouTube channel]
+
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\RequirePackage{graphicx}
+\RequirePackage{pgffor}
+\RequirePackage{polyglossia}
+
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\graphicspath{{assets/backgrounds/}{assets/people/}{assets/logo/}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\@ifundefined{BuildCover}{\newcommand{\BuildCover}{all}}{}
+
+% --- palette: accent + text for each named background -----------------------
+
+\newcommand{\intsys@declarebg}[3]{%
+  \pgfkeys{/intsys/bg/#1/alert/.initial=#2}%
+  \pgfkeys{/intsys/bg/#1/text/.initial=#3}%
+}
+
+\intsys@declarebg{grey}{000000}{black}
+\intsys@declarebg{white-yellow}{FFBA00}{black}
+\intsys@declarebg{white-orange}{FF8C32}{black}
+\intsys@declarebg{white-red}{FF0000}{black}
+\intsys@declarebg{white-green}{1ED760}{black}
+\intsys@declarebg{white-blue}{0F52BA}{black}
+\intsys@declarebg{white-royal-blue}{4169E1}{black}
+\intsys@declarebg{white-violet}{7F3DFF}{black}
+\intsys@declarebg{white-purple}{CC00FF}{black}
+\intsys@declarebg{black-yellow}{FFBA00}{white}
+\intsys@declarebg{black-orange}{FF8C32}{white}
+\intsys@declarebg{black-red}{FF0000}{white}
+\intsys@declarebg{black-green}{1ED760}{white}
+\intsys@declarebg{black-blue}{1A96D5}{white}
+\intsys@declarebg{black-royal-blue}{4169E1}{white}
+\intsys@declarebg{black-violet}{7F3DFF}{white}
+\intsys@declarebg{black-purple}{CC00FF}{white}
+\intsys@declarebg{design-1}{000000}{black}
+\intsys@declarebg{design-2}{000000}{black}
+\intsys@declarebg{design-3}{000000}{black}
+\intsys@declarebg{black-design-1}{FFFFFF}{white}
+\intsys@declarebg{black-design-2}{FFFFFF}{white}
+\intsys@declarebg{black-design-3}{FFFFFF}{white}
+
+% --- people -----------------------------------------------------------------
+
+\newcommand{\defineperson}[2]{%
+  \pgfkeys{/intsys/person/#1/.cd,
+    name/.initial={},
+    photo/.initial={},
+    photo-height/.initial={},
+    photo-x/.initial={},
+    photo-y/.initial={},
+    #2}%
+}
+
+% --- cover keys -------------------------------------------------------------
+
+\newcommand{\intsys@resetkeys}{%
+  \def\intsys@kind{lecture}%
+  \def\intsys@brand{INTELLIGENT SYSTEMS}%
+  \def\intsys@title{}%
+  \def\intsys@subtitle{}%
+  \def\intsys@subtitlesize{large}%
+  \def\intsys@background{grey}%
+  \def\intsys@session{Лекция}%
+  \def\intsys@sessionnumber{}%
+  \def\intsys@sessiony{0cm}%
+  \def\intsys@badge{}%
+  \def\intsys@lecturer{}%
+  \def\intsys@seminarist{}%
+  \def\intsys@lecturerlabel{Лектор}%
+  \def\intsys@seminaristlabel{Семинарист}%
+  \def\intsys@alert{}%
+  \def\intsys@textcolor{}%
+  \def\intsys@ovheight{}%
+  \def\intsys@ovx{}%
+  \def\intsys@ovy{}%
+}
+
+\intsys@resetkeys
+
+\pgfkeys{
+  /intsys/cover/.cd,
+  kind/.store in=\intsys@kind,
+  brand/.store in=\intsys@brand,
+  title/.store in=\intsys@title,
+  subtitle/.store in=\intsys@subtitle,
+  subtitle-size/.store in=\intsys@subtitlesize,
+  background/.store in=\intsys@background,
+  session/.store in=\intsys@session,
+  session-number/.store in=\intsys@sessionnumber,
+  session-y/.store in=\intsys@sessiony,
+  badge/.store in=\intsys@badge,
+  lecturer/.store in=\intsys@lecturer,
+  seminarist/.store in=\intsys@seminarist,
+  lecturer-label/.store in=\intsys@lecturerlabel,
+  seminarist-label/.store in=\intsys@seminaristlabel,
+  alert/.store in=\intsys@alert,
+  text/.store in=\intsys@textcolor,
+  photo-height/.store in=\intsys@ovheight,
+  photo-x/.store in=\intsys@ovx,
+  photo-y/.store in=\intsys@ovy,
+}
+
+\newcommand{\coversetup}[1]{%
+  \intsys@resetkeys
+  \pgfkeys{/intsys/cover/.cd, #1}%
+}
+
+\newcommand{\intsys@resolvetheme}{%
+  \pgfkeysifdefined{/intsys/bg/\intsys@background/alert}{%
+    \ifx\intsys@alert\empty
+      \edef\intsys@alert{\pgfkeysvalueof{/intsys/bg/\intsys@background/alert}}%
+    \fi
+    \ifx\intsys@textcolor\empty
+      \edef\intsys@textcolor{\pgfkeysvalueof{/intsys/bg/\intsys@background/text}}%
+    \fi
+  }{%
+    \ifx\intsys@alert\empty\def\intsys@alert{000000}\fi
+    \ifx\intsys@textcolor\empty\def\intsys@textcolor{black}\fi
+  }%
+  \definecolor{intsysaccent}{HTML}{\intsys@alert}%
+  \setbeamercolor{normal text}{fg=\intsys@textcolor}%
+  \setbeamercolor{title}{fg=\intsys@textcolor}%
+  \setbeamercolor{subtitle}{fg=\intsys@textcolor}%
+  \usebeamercolor[fg]{normal text}%
+}
+
+\newcommand{\intsys@needperson}[1]{%
+  \edef\intsys@lookup{#1}%
+  \pgfkeysifdefined{/intsys/person/\intsys@lookup/name}{}{%
+    \PackageError{intsystems-cover}{Unknown person `\intsys@lookup'}{%
+      Add \string\defineperson{\intsys@lookup}{...} to data/people.tex.}%
+  }%
+}
+
+\newcommand{\intsys@pget}[3]{%
+  \edef\intsys@pgetid{#1}%
+  \pgfkeysgetvalue{/intsys/person/\intsys@pgetid/#2}{#3}%
+}
+
+\newcommand{\intsys@resolvepicture}[1]{%
+  \ifdefstring{\intsys@kind}{event}{%
+    \def\intsys@useheight{0.8}%
+    \def\intsys@usex{0cm}%
+    \def\intsys@usey{-0.2cm}%
+  }{%
+    \def\intsys@useheight{0.6}%
+    \def\intsys@usex{-2.0cm}%
+    \def\intsys@usey{-0.5cm}%
+    \intsys@pget{#1}{photo-height}{\intsys@tmp}%
+    \ifx\intsys@tmp\empty\else\let\intsys@useheight\intsys@tmp\fi
+    \intsys@pget{#1}{photo-x}{\intsys@tmp}%
+    \ifx\intsys@tmp\empty\else\let\intsys@usex\intsys@tmp\fi
+    \intsys@pget{#1}{photo-y}{\intsys@tmp}%
+    \ifx\intsys@tmp\empty\else\let\intsys@usey\intsys@tmp\fi
+  }%
+  \ifx\intsys@ovheight\empty\else\let\intsys@useheight\intsys@ovheight\fi
+  \ifx\intsys@ovx\empty\else\let\intsys@usex\intsys@ovx\fi
+  \ifx\intsys@ovy\empty\else\let\intsys@usey\intsys@ovy\fi
+}
+
+\newcommand{\intsys@drawphoto}[3]{% id, extra x, height scale
+  \edef\intsys@pid{#1}%
+  \ifdefempty{\intsys@pid}{}{%
+    \intsys@needperson{\intsys@pid}%
+    \intsys@pget{\intsys@pid}{photo}{\intsys@photofile}%
+    \ifx\intsys@photofile\empty\else
+      \intsys@resolvepicture{\intsys@pid}%
+      \pgfmathsetmacro{\intsys@h}{\intsys@useheight*#3}%
+      \node[anchor=south east] at
+        ($(current page.south east)+(\intsys@usex+#2,\intsys@usey)$)
+        {\includegraphics[height=\intsys@h\paperheight]{\intsys@photofile}};%
+    \fi
+  }%
+}
+
+\newcommand{\intsys@drawrole}[4]{% label, person-id, label-y, name-y
+  \edef\intsys@pid{#2}%
+  \ifdefempty{\intsys@pid}{}{%
+    \intsys@needperson{\intsys@pid}%
+    \intsys@pget{\intsys@pid}{name}{\intsys@personname}%
+    \node[anchor=west] at ($(current page.south west)+(0.8cm,#3)$)
+      {\small #1};%
+    \node[anchor=west] at ($(current page.south west)+(0.8cm,#4)$)
+      {\Large \textcolor{intsysaccent}{\intsys@personname}};%
+  }%
+}
+
+\newcommand{\intsys@drawframe}{%
+  \frame[plain]{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=center] at (current page.center)
+        {\includegraphics[width=\paperwidth,height=\paperheight]{\intsys@background.png}};
+      \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+        {\small\textcolor{intsysaccent}{\intsys@brand}};
+      \ifdefstring{\intsys@kind}{event}{\intsys@layoutevent}{\intsys@layoutlecture}%
+    \end{tikzpicture}%
+  }%
+}
+
+\newcommand{\intsys@layoutlecture}{%
+  \ifdefempty{\intsys@seminarist}{%
+    \intsys@drawphoto{\intsys@lecturer}{0cm}{1}%
+  }{%
+    \intsys@drawphoto{\intsys@lecturer}{0cm}{1}%
+    \intsys@drawphoto{\intsys@seminarist}{-4.4cm}{0.75}%
+  }%
+  \node[anchor=west, text width=0.9\paperwidth] at
+    ($(current page.west)+(0.8cm,1.0cm)$)
+    {\huge \intsys@title};%
+  \ifboolexpr{ test {\ifdefempty{\intsys@session}} and test {\ifdefempty{\intsys@sessionnumber}} }{}{%
+    \node[anchor=west] at ($(current page.west)+(0.8cm,\intsys@sessiony)$)
+      {\huge \intsys@session
+        \ifdefempty{\intsys@sessionnumber}{}{\,\intsys@sessionnumber}};%
+  }%
+  \ifdefempty{\intsys@seminarist}{%
+    \intsys@drawrole{\intsys@lecturerlabel}{\intsys@lecturer}{1.5cm}{0.9cm}%
+  }{%
+    \intsys@drawrole{\intsys@lecturerlabel}{\intsys@lecturer}{2.7cm}{2.1cm}%
+    \intsys@drawrole{\intsys@seminaristlabel}{\intsys@seminarist}{1.5cm}{0.9cm}%
+  }%
+}
+
+\newcommand{\intsys@layoutevent}{%
+  \intsys@drawphoto{\intsys@lecturer}{0cm}{1}%
+  \node[anchor=west, text width=0.9\paperwidth] at
+    ($(current page.west)+(0.8cm,1.0cm)$)
+    {\Huge \intsys@title};%
+  \ifdefempty{\intsys@subtitle}{}{%
+    \ifdefempty{\intsys@lecturer}{%
+      \def\intsys@subw{0.7\paperwidth}%
+    }{%
+      \def\intsys@subw{0.45\paperwidth}%
+    }%
+    \node[anchor=west, text width=\intsys@subw] at
+      ($(current page.west)+(0.8cm,-0.5cm)$)
+      {\csname\intsys@subtitlesize\endcsname \intsys@subtitle};%
+  }%
+  \ifdefempty{\intsys@badge}{}{%
+    \node[anchor=west] at ($(current page.south west)+(2.5cm,1.1cm)$)
+      {\small \intsys@badge};%
+  }%
+}
+
+\NewDocumentCommand{\cover}{O{}}{%
+  \begingroup
+    \pgfkeys{/intsys/cover/.cd, #1}%
+    \intsys@resolvetheme
+    \intsys@drawframe
+  \endgroup
+}
+
+% \covers{1,2,4,...,14}{lecturer-id}
+% \covers[seminarist-id]{1,2}{lecturer-id}
+\NewDocumentCommand{\covers}{O{} m m}{%
+  \ifstrempty{#1}{%
+    \def\intsys@extra{}%
+  }{%
+    \def\intsys@extra{, seminarist=#1}%
+  }%
+  \foreach \n in {#2} {%
+    \edef\intsys@do{%
+      \noexpand\cover[session-number=\n, lecturer=#3\intsys@extra]%
+    }%
+    \intsys@do
+  }%
+}
+
+\newcommand{\usecover}[1]{%
+  \ifdefstring{\BuildCover}{all}{%
+    \input{covers/#1}%
+  }{%
+    \ifdefstring{\BuildCover}{#1}{%
+      \input{covers/#1}%
+    }{}%
+  }%
+}
+
+\IfFileExists{data/people.tex}{\input{data/people.tex}}{%
+  \PackageWarning{intsystems-cover}{data/people.tex not found}%
+}
+
+\endinput

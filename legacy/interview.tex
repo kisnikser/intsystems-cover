@@ -1,0 +1,50 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[main=russian,english]{babel}
+
+\usepackage{polyglossia}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=black}
+
+\newcommand{\CourseName}{INTELLIGENT SYSTEMS}
+\newcommand{\MainTitle}{Максим Панов}
+\newcommand{\Subtitle}{Assistant Professor of Machine Learning, MBZUAI}
+
+\newcommand{\LecturerPhoto}{assets/people/panov_maxim.png}
+\newcommand{\BackgroundImage}{assets/backgrounds/design-2.png}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=center] at (current page.center)
+            {\includegraphics[width=\paperwidth,height=\paperheight]{\BackgroundImage}};
+        \node[anchor=south east] at ($(current page.south east)+(0cm,-0.2cm)$)
+            {\includegraphics[height=0.8\paperheight]{\LecturerPhoto}};
+        \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+            {\small \CourseName};
+        \node[anchor=west, text width=0.9\paperwidth] at
+            ($(current page.west)+(0.8cm,1.0cm)$)
+            {\Huge \MainTitle};
+        \node[anchor=west, text width=0.4\paperwidth] at ($(current page.west)+(0.8cm,0cm)$)
+            {\large \Subtitle};
+        \node[anchor=west] at ($(current page.south west)+(2.5cm,1.1cm)$)
+            {\small Интервью};
+    \end{tikzpicture}
+\end{frame}
+
+\end{document}

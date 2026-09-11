@@ -1,0 +1,97 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[main=russian,english]{babel}
+
+\usepackage{polyglossia}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\definecolor{alert}{HTML}{CC00FF}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=black}
+
+\newcommand{\CourseName}{INTELLIGENT SYSTEMS}
+\newcommand{\MainTitle}{Методы глубокого обучения}
+\newcommand{\LecturerLabel}{Лектор}
+
+\newcommand{\LecturerPhotoNikita}{assets/people/kiselev_ns.png}
+\newcommand{\LecturerNameNikita}{НИКИТА КИСЕЛЕВ}
+
+\newcommand{\LecturerPhotoEduard}{assets/people/vladimirov_ea.png}
+\newcommand{\LecturerNameEduard}{ЭДУАРД ВЛАДИМИРОВ}
+
+\newcommand{\LecturerPhotoDaniil}{assets/people/dorin_dd.png}
+\newcommand{\LecturerNameDaniil}{ДАНИИЛ ДОРИН}
+
+\newcommand{\LecturerPhotoSergey}{assets/people/firsov_sa.png}
+\newcommand{\LecturerNameSergey}{СЕРГЕЙ ФИРСОВ}
+
+\newcommand{\LecturerPhotoVadim}{assets/people/kasiuk_va.png}
+\newcommand{\LecturerNameVadim}{ВАДИМ КАСЮК}
+
+\newcommand{\BackgroundImage}{assets/backgrounds/white-purple.png}
+
+\newcommand{\LectureCover}[3]{
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[anchor=center] at (current page.center)
+                {\includegraphics[width=\paperwidth,height=\paperheight]{\BackgroundImage}};
+            \node[anchor=south east] at ($(current page.south east)+(-2.0cm,-0.5cm)$)
+                {\includegraphics[height=0.6\paperheight]{#2}};
+            \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+                {\small\textcolor{alert}{\CourseName}};
+            \node[anchor=west, text width=0.9\paperwidth] at
+                ($(current page.west)+(0.8cm,1.0cm)$)
+                {\huge \MainTitle};
+            \node[anchor=west] at ($(current page.west)+(0.8cm,0cm)$)
+                {\huge Занятие~#1};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,1.5cm)$)
+                {\small \LecturerLabel};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,0.9cm)$)
+                {\Large \textcolor{alert}{#3}};
+        \end{tikzpicture}
+    \end{frame}
+}
+
+\begin{document}
+
+\foreach \n in {1,2,3}{
+    \LectureCover{\n}{\LecturerPhotoEduard}{\LecturerNameEduard}
+}
+
+\foreach \n in {4,5}{
+    \LectureCover{\n}{\LecturerPhotoSergey}{\LecturerNameSergey}
+}
+
+\foreach \n in {6,7}{
+    \LectureCover{\n}{\LecturerPhotoDaniil}{\LecturerNameDaniil}
+}
+
+\foreach \n in {8,9}{
+    \LectureCover{\n}{\LecturerPhotoVadim}{\LecturerNameVadim}
+}
+
+\foreach \n in {10,11}{
+    \LectureCover{\n}{\LecturerPhotoNikita}{\LecturerNameNikita}
+}
+
+\foreach \n in {12}{
+    \LectureCover{\n}{\LecturerPhotoDaniil}{\LecturerNameDaniil}
+}
+
+\foreach \n in {13}{
+    \LectureCover{\n}{\LecturerPhotoNikita}{\LecturerNameNikita}
+}
+
+\end{document}

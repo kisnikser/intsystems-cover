@@ -1,0 +1,60 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[main=russian,english]{babel}
+
+\usepackage{polyglossia}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\definecolor{alert}{HTML}{4169E1}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=black}
+
+\newcommand{\CourseName}{INTELLIGENT SYSTEMS}
+\newcommand{\MainTitle}{Введение в специальность}
+\newcommand{\LecturerLabel}{Лектор}
+\newcommand{\LecturerName}{АНДРЕЙ ГРАБОВОЙ}
+
+\newcommand{\LecturerPhoto}{assets/people/grabovoy_av.png}
+\newcommand{\BackgroundImage}{assets/backgrounds/white-royal-blue.png}
+
+\newcommand{\LectureCover}[1]{
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[anchor=center] at (current page.center)
+                {\includegraphics[width=\paperwidth,height=\paperheight]{\BackgroundImage}};
+            \node[anchor=south east] at ($(current page.south east)+(-2.5cm,-2.0cm)$)
+                {\includegraphics[height=0.85\paperheight]{\LecturerPhoto}};
+            \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+                {\small\textcolor{alert}{\CourseName}};
+            \node[anchor=west, text width=0.9\paperwidth] at
+                ($(current page.west)+(0.8cm,1.0cm)$)
+                {\huge \MainTitle};
+            \node[anchor=west] at ($(current page.west)+(0.8cm,0cm)$)
+                {\huge Лекция~#1};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,1.5cm)$)
+                {\small \LecturerLabel};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,0.9cm)$)
+                {\Large \textcolor{alert}{\LecturerName}};
+        \end{tikzpicture}
+    \end{frame}
+}
+
+\begin{document}
+
+\foreach \n in {1,...,14}{
+    \LectureCover{\n}
+}
+
+\end{document}

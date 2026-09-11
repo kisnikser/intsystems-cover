@@ -1,0 +1,72 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[main=russian,english]{babel}
+
+\usepackage{polyglossia}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\definecolor{alert}{HTML}{1A96D5}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=white}
+
+\newcommand{\CourseName}{INTELLIGENT SYSTEMS}
+\newcommand{\MainTitle}{Математические методы\\\vspace{0.15em}анализа текстов}
+\newcommand{\LecturerLabel}{Лектор}
+
+\newcommand{\LecturerPhotoGerman}{assets/people/gritsay_gm.png}
+\newcommand{\LecturerNameGerman}{ГЕРМАН ГРИЦАЙ}
+
+\newcommand{\LecturerPhotoIldar}{assets/people/khabutdinov_ia.png}
+\newcommand{\LecturerNameIldar}{ИЛЬДАР ХАБУТДИНОВ}
+
+\newcommand{\BackgroundImage}{assets/backgrounds/black-blue.png}
+
+\newcommand{\LectureCover}[3]{
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[anchor=center] at (current page.center)
+                {\includegraphics[width=\paperwidth,height=\paperheight]{\BackgroundImage}};
+            \node[anchor=south east] at ($(current page.south east)+(-2.7cm,-0.55cm)$)
+                {\includegraphics[height=0.6\paperheight]{#2}};
+            \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+                {\small\textcolor{alert}{\CourseName}};
+            \node[anchor=west, text width=0.9\paperwidth] at
+                ($(current page.west)+(0.8cm,1.0cm)$)
+                {\huge \MainTitle};
+            \node[anchor=west] at ($(current page.west)+(0.8cm,-0.2cm)$)
+                {\huge Лекция~#1};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,1.5cm)$)
+                {\small \LecturerLabel};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,0.9cm)$)
+                {\Large \textcolor{alert}{#3}};
+        \end{tikzpicture}
+    \end{frame}
+}
+
+\begin{document}
+
+\foreach \n in {1,2,3,4}{
+    \LectureCover{\n}{\LecturerPhotoGerman}{\LecturerNameGerman}
+}
+
+\foreach \n in {5}{
+    \LectureCover{\n}{\LecturerPhotoIldar}{\LecturerNameIldar}
+}
+
+\foreach \n in {6,7,8,9,10,11,12,13,14}{
+    \LectureCover{\n}{\LecturerPhotoGerman}{\LecturerNameGerman}
+}
+
+\end{document}

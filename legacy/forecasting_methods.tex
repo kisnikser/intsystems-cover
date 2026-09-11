@@ -1,0 +1,87 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+\usepackage[main=russian,english]{babel}
+
+\usepackage{polyglossia}
+\setsansfont{Open Sans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+
+\definecolor{alert}{HTML}{1ED760}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=black}
+
+\newcommand{\CourseName}{INTELLIGENT SYSTEMS}
+\newcommand{\MainTitle}{Математические методы\\\vspace{0.15em} прогнозирования II}
+\newcommand{\LecturerLabel}{Лектор}
+
+\newcommand{\LecturerPhotoDenis}{assets/people/tikhonov_dm.png}
+\newcommand{\LecturerNameDenis}{ДЕНИС ТИХОНОВ}
+
+\newcommand{\LecturerPhotoSviatoslav}{assets/people/panchenko_sk.png}
+\newcommand{\LecturerNameSviatoslav}{СВЯТОСЛАВ ПАНЧЕНКО}
+
+\newcommand{\LecturerPhotoVadim}{assets/people/kasiuk_va.png}
+\newcommand{\LecturerNameVadim}{ВАДИМ КАСЮК}
+
+\newcommand{\BackgroundImage}{assets/backgrounds/white-green.png}
+
+\newcommand{\LectureCover}[3]{
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[anchor=center] at (current page.center)
+                {\includegraphics[width=\paperwidth,height=\paperheight]{\BackgroundImage}};
+            \node[anchor=south east] at ($(current page.south east)+(-2.0cm,-0.5cm)$)
+                {\includegraphics[height=0.6\paperheight]{#2}};
+            \node[anchor=west] at ($(current page.north west)+(0.8cm,-0.9cm)$)
+                {\small\textcolor{alert}{\CourseName}};
+            \node[anchor=west, text width=0.9\paperwidth] at
+                ($(current page.west)+(0.8cm,1.0cm)$)
+                {\huge \MainTitle};
+            \node[anchor=west] at ($(current page.west)+(0.8cm,-0.2cm)$)
+                {\huge Лекция~#1};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,1.5cm)$)
+                {\small \LecturerLabel};
+            \node[anchor=west] at ($(current page.south west)+(0.8cm,0.9cm)$)
+                {\Large \textcolor{alert}{#3}};
+        \end{tikzpicture}
+    \end{frame}
+}
+
+\begin{document}
+
+\foreach \n in {1,2,3,4}{
+    \LectureCover{\n}{\LecturerPhotoDenis}{\LecturerNameDenis}
+}
+
+% \foreach \n in {3}{
+%     \LectureCover{\n}{\LecturerPhotoVadim}{\LecturerNameVadim}
+% }
+
+% \foreach \n in {4}{
+%     \LectureCover{\n}{\LecturerPhotoDenis}{\LecturerNameDenis}
+% }
+
+% \foreach \n in {5}{
+%     \LectureCover{\n}{\LecturerPhotoSviatoslav}{\LecturerNameSviatoslav}
+% }
+
+% \foreach \n in {6}{
+%     \LectureCover{\n}{\LecturerPhotoVadim}{\LecturerNameVadim}
+% }
+
+% \foreach \n in {7,8}{
+%     \LectureCover{\n}{\LecturerPhotoDenis}{\LecturerNameDenis}
+% }
+
+\end{document}
